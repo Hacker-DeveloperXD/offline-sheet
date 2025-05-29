@@ -1,0 +1,206 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 94.1%; /* #F0F0F0 Very light gray */
+    --foreground: 0 0% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+
+    --primary: 200 53% 80%; /* #ADD8E6 Light Blue */
+    --primary-foreground: 200 50% 25%; /* Darker blue for contrast */
+
+    --secondary: 240 10% 90%; /* Lighter gray for secondary elements */
+    --secondary-foreground: 0 0% 9%;
+
+    --muted: 240 10% 90%;
+    --muted-foreground: 0 0% 45.1%;
+
+    --accent: 240 67% 97%; /* #E6E6FA Soft Lavender */
+    --accent-foreground: 240 50% 25%; /* Darker lavender for contrast */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 85%; /* Slightly darker border for clarity */
+    --input: 0 0% 89.8%;
+    --ring: 200 53% 70%; /* Ring color based on primary */
+
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Conditional Formatting Styles */
+    --cf-light-red-fill: 0 100% 95%; /* hsl(0, 100%, 95%) */
+    --cf-dark-red-text: 0 70% 40%;  /* hsl(0, 70%, 40%) */
+    --cf-yellow-fill: 60 100% 90%; /* hsl(60, 100%, 90%) */
+    --cf-dark-yellow-text: 50 60% 30%; /* hsl(50, 60%, 30%) */
+    --cf-green-fill: 120 100% 95%; /* hsl(120, 100%, 95%) */
+    --cf-dark-green-text: 120 60% 30%; /* hsl(120, 60%, 30%) */
+  }
+
+  .dark {
+    --background: 240 10% 10%; /* Darker background */
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 200 50% 50%; /* Dark mode primary */
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 5% 18%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 5% 18%;
+    --muted-foreground: 0 0% 63.9%;
+
+    --accent: 240 30% 40%; /* Dark mode accent */
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5% 20%;
+    --input: 240 5% 20%;
+    --ring: 200 50% 60%; /* Ring color based on primary */
+    
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+     /* Conditional Formatting Styles - Dark */
+    --cf-light-red-fill: 0 40% 25%; 
+    --cf-dark-red-text: 0 100% 85%;  
+    --cf-yellow-fill: 60 40% 20%; 
+    --cf-dark-yellow-text: 50 100% 80%;
+    --cf-green-fill: 120 40% 25%;
+    --cf-dark-green-text: 120 100% 85%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1; /* Enable common ligatures and contextual alternates */
+  }
+}
+
+/* Conditional Formatting Classes */
+.cf-lightRedFillDarkRedText {
+  background-color: hsl(var(--cf-light-red-fill)) !important;
+  color: hsl(var(--cf-dark-red-text)) !important;
+}
+.cf-yellowFillDarkYellowText {
+  background-color: hsl(var(--cf-yellow-fill)) !important;
+  color: hsl(var(--cf-dark-yellow-text)) !important;
+}
+.cf-greenFillDarkGreenText {
+  background-color: hsl(var(--cf-green-fill)) !important;
+  color: hsl(var(--cf-dark-green-text)) !important;
+}
+
+
+/* Print specific styles */
+@media print {
+  body {
+    font-family: Arial, Helvetica, sans-serif; /* Use print-friendly fonts */
+    background-color: #fff !important; /* Ensure white background */
+    color: #000 !important; /* Ensure black text */
+    -webkit-print-color-adjust: exact; /* Ensure colors and backgrounds print in Chrome/Safari */
+    color-adjust: exact; /* Standard property */
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .print\:bg-white {
+    background-color: #fff !important;
+  }
+  .print\:text-black {
+    color: #000 !important;
+  }
+  .print\:border {
+    border-width: 1px !important;
+    border-color: #ccc !important; /* Light gray borders for print */
+  }
+  
+  table, thead, tbody, th, td, tr {
+    border-color: #ccc !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+  }
+
+  /* Remove shadows and complex backgrounds for print */
+  .shadow-sm, .shadow-lg, .shadow-xl {
+    box-shadow: none !important;
+  }
+
+  /* Ensure grid lines are visible and simple */
+  td, th {
+    border: 1px solid #ccc !important; /* Thin gray border for all cells */
+    padding: 4px !important; /* Reduce padding for print */
+    background-color: #fff !important; /* Ensure cell backgrounds are white */
+  }
+  
+  /* Hide scrollbars */
+  .overflow-x-auto::-webkit-scrollbar,
+  .overflow-y-auto::-webkit-scrollbar,
+  .overflow-auto::-webkit-scrollbar {
+    display: none;
+  }
+  .overflow-x-auto, .overflow-y-auto, .overflow-auto {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For IE and Edge */
+  }
+  .h-full.w-full.p-1.bg-muted\/20 { /* Specific to ScrollArea in Grid */
+     overflow: visible !important; /* Allow content to naturally flow for printing */
+     height: auto !important;
+     background-color: #fff !important;
+  }
+  table {
+    width: 100% !important; /* Ensure table takes full width for print */
+    table-layout: fixed !important; /* Helps with column widths in print */
+  }
+}
