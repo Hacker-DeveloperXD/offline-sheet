@@ -8,6 +8,7 @@ import { useSpreadsheet } from "@/hooks/useSpreadsheet";
 import { OfflineSheetLogo } from "../icons/OfflineSheetLogo";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
+<<<<<<< HEAD
 import {
     Save, Home, Upload, Download, Undo, Redo, Bold, Italic, Underline, Type,
     AlignLeft, AlignCenter, AlignRight, FileText, RowsIcon, Columns, Trash2,
@@ -25,6 +26,24 @@ import { AvailableFunctionsDialog } from './AvailableFunctionsDialog';
 import { ConditionalFormattingDialog } from './ConditionalFormattingDialog';
 import { CellHistoryDialog } from './CellHistoryDialog';
 import {
+=======
+import { 
+    Save, Home, Upload, Download, Undo, Redo, Bold, Italic, Underline, 
+    AlignLeft, AlignCenter, AlignRight, FileText, RowsIcon, Columns, Trash2, 
+    PlusSquare, ListChecks, Sun, Moon, FilePlus, ClipboardCopy, Eraser, Edit,
+    TableIcon, Wand2, Sigma, GridIcon, Printer, Merge, Split, Search, Palette,
+    CaseSensitive, WholeWord, Replace, Pilcrow, Share2
+} from "lucide-react"; 
+import {
+  Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut,
+  MenubarTrigger, MenubarGroup, MenubarSub, MenubarSubContent, MenubarSubTrigger, 
+} from "@/components/ui/menubar";
+import { Separator } from "@/components/ui/separator"; 
+import { cn } from '@/lib/utils';
+import { AvailableFunctionsDialog } from './AvailableFunctionsDialog';
+import { ConditionalFormattingDialog } from './ConditionalFormattingDialog';
+import { 
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -33,6 +52,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select"
 import { useToast } from '@/hooks/use-toast';
+<<<<<<< HEAD
 import type { SpreadsheetData, NumberFormatStyle, CellAddress, CellDataType, CellStyle } from '@/types/spreadsheet';
 
 
@@ -61,6 +81,15 @@ const DATA_TYPES: { label: string; value: CellDataType }[] = [
   { label: "Text", value: "text" },
 ];
 
+=======
+import type { SpreadsheetData } from '@/types/spreadsheet';
+import { saveSpreadsheet as dbSaveSpreadsheet } from '@/lib/db';
+import { v4 as uuidv4 } from 'uuid';
+
+const FONT_FAMILIES = ["Arial", "Verdana", "Tahoma", "Times New Roman", "Georgia", "Courier New"];
+const FONT_SIZES = ["8pt", "9pt", "10pt", "11pt", "12pt", "14pt", "16pt", "18pt", "20pt", "24pt", "30pt", "36pt"];
+
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
 
 interface ToolbarProps {
   spreadsheetName: string;
@@ -69,6 +98,7 @@ interface ToolbarProps {
 }
 
 export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarProps) {
+<<<<<<< HEAD
   const {
     saveSpreadsheet: contextSaveSpreadsheet,
     spreadsheet,
@@ -110,14 +140,29 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
   const xlsxInputRef = useRef<HTMLInputElement>(null);
   const csvInputRef = useRef<HTMLInputElement>(null);
 
+=======
+  const { 
+    saveSpreadsheet, spreadsheet, setSpreadsheet: setContextSpreadsheet, activeCell, selectionRange, 
+    updateSelectedCellStyle, formatSelectionAsTable, insertRow, deleteRow, insertColumn, deleteColumn,
+    appendRow, appendColumn, undo, redo, canUndo, canRedo, copySelectionToClipboard, 
+    deleteSelectionContents, updateMultipleCellsRawValue, addConditionalFormatRule,
+    mergeSelection, unmergeSelection, findInSheet, setActiveCellAndSelection
+  } = useSpreadsheet();
+  const router = useRouter(); 
+  const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
 
   const [isFunctionsDialogOpen, setIsFunctionsDialogOpen] = React.useState(false);
   const [isConditionalFormattingDialogOpen, setIsConditionalFormattingDialogOpen] = React.useState(false);
   const [isFindDialogOpen, setIsFindDialogOpen] = React.useState(false);
+<<<<<<< HEAD
   const [isCellHistoryDialogOpen, setIsCellHistoryDialogOpen] = React.useState(false);
   // const [isManageSnapshotsDialogOpen, setIsManageSnapshotsDialogOpen] = React.useState(false); // Removed
 
 
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
   const [findTerm, setFindTerm] = React.useState('');
   const [findMatchCase, setFindMatchCase] = React.useState(false);
   const [findEntireCell, setFindEntireCell] = React.useState(false);
@@ -135,6 +180,7 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
   };
 
   const selectedCellStyle = React.useMemo(() => {
+<<<<<<< HEAD
     const defaultStyle: Partial<CellStyle> = { 
         numberFormat: 'general', 
         fontFamily: FONT_FAMILIES[0], 
@@ -153,6 +199,16 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
         ...defaultStyle,
         ...(cellDataToUse?.style || {})
     };
+=======
+    if (!spreadsheet || !activeCell || !activeCell.sheetId) return {};
+    const sheet = spreadsheet.sheets.find(s => s.id === activeCell.sheetId);
+    if (!sheet) return {};
+    const cellData = sheet.cells[activeCell.rowIndex]?.[activeCell.colIndex];
+    if(cellData?.isMerged && cellData.mergeMaster){
+        return sheet.cells[cellData.mergeMaster.rowIndex]?.[cellData.mergeMaster.colIndex]?.style || {};
+    }
+    return cellData?.style || {};
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
   }, [spreadsheet, activeCell]);
 
   const handleToggleBold = () => { if (isSelectionActive) updateSelectedCellStyle({ bold: !selectedCellStyle?.bold }); };
@@ -160,10 +216,20 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
   const handleToggleUnderline = () => { if (isSelectionActive) updateSelectedCellStyle({ underline: !selectedCellStyle?.underline }); };
   const handleFontFamilyChange = (family: string) => { if (isSelectionActive) updateSelectedCellStyle({ fontFamily: family }); };
   const handleFontSizeChange = (size: string) => { if (isSelectionActive) updateSelectedCellStyle({ fontSize: size }); };
+<<<<<<< HEAD
   const handleNumberFormatChange = (format: NumberFormatStyle) => { if (isSelectionActive) updateSelectedCellNumberFormat(format); };
   const handleDataTypeChange = (dataType: CellDataType) => { if (isSelectionActive) updateSelectedCellDataType(dataType); };
 
 
+=======
+
+
+  const handleExport = (format: 'xlsx' | 'csv') => {
+    setTimeout(() => toast({ title: "Export", description: `Export as ${format} is not yet implemented.`, variant: "default" }), 0);
+    console.log(`Export as ${format} (Not implemented)`);
+  };
+
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
   const handleShare = () => {
     if (!spreadsheet) {
       setTimeout(() => toast({ title: "Share Failed", description: "No spreadsheet data to share.", variant: "destructive" }), 0);
@@ -181,6 +247,7 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+<<<<<<< HEAD
       setTimeout(() => toast({ title: "Shared", description: "Spreadsheet data download started (as JSON)." }), 0);
     } catch (error) {
       console.error("Failed to share spreadsheet as JSON:", error);
@@ -207,15 +274,90 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
     }
   };
 
+=======
+      setTimeout(() => toast({ title: "Shared", description: "Spreadsheet data downloaded as JSON." }), 0);
+    } catch (error) {
+      console.error("Failed to share spreadsheet:", error);
+      setTimeout(() => toast({ title: "Share Error", description: "Could not prepare spreadsheet for sharing.", variant: "destructive" }), 0);
+    }
+  };
+
+  const handleLoadFromFileClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileSelected = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        const text = e.target?.result as string;
+        const importedData = JSON.parse(text) as SpreadsheetData;
+
+        // Basic validation
+        if (!importedData || typeof importedData.id !== 'string' || typeof importedData.name !== 'string' || !Array.isArray(importedData.sheets)) {
+          throw new Error("Invalid file format.");
+        }
+
+        const newId = uuidv4();
+        const originalName = importedData.name || "Untitled";
+        
+        const newSpreadsheetData: SpreadsheetData = {
+          ...importedData,
+          id: newId,
+          name: `Imported - ${originalName}`.substring(0, 50), // Limit name length
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+        };
+        
+        // Ensure sheets have rowCount and columnCount, and cells are initialized
+        newSpreadsheetData.sheets = newSpreadsheetData.sheets.map(sheet => ({
+          ...sheet,
+          rowCount: sheet.rowCount || 50, // Provide defaults if missing
+          columnCount: sheet.columnCount || 20,
+          cells: sheet.cells || Array.from({ length: sheet.rowCount || 50 }, () => 
+            Array.from({ length: sheet.columnCount || 20 }, () => ({ id: '', rawValue: ''}))
+          )
+        }));
+
+
+        const saveResult = await dbSaveSpreadsheet(newSpreadsheetData);
+        if (saveResult.success) {
+          setTimeout(() => toast({ title: "Import Successful", description: `Spreadsheet "${newSpreadsheetData.name}" imported and saved.` }), 0);
+          router.push(`/spreadsheet/${newId}`);
+        } else {
+          throw new Error(saveResult.error || "Failed to save imported spreadsheet.");
+        }
+
+      } catch (error: any) {
+        console.error("Failed to load spreadsheet from file:", error);
+        setTimeout(() => toast({ title: "Import Error", description: `Could not load spreadsheet: ${error.message}`, variant: "destructive" }), 0);
+      } finally {
+        // Reset file input to allow selecting the same file again
+        if(fileInputRef.current) fileInputRef.current.value = "";
+      }
+    };
+    reader.readAsText(file);
+  };
+  
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
   const handleInsertRowAction = () => { if (spreadsheet?.activeSheetId) insertRow(spreadsheet.activeSheetId, activeCell?.rowIndex ?? 0); };
   const handleDeleteRowAction = () => { if (spreadsheet && activeCell) deleteRow(activeCell.sheetId, activeCell.rowIndex); };
   const handleInsertColumnAction = () => {  if (spreadsheet?.activeSheetId) insertColumn(spreadsheet.activeSheetId, activeCell?.colIndex ?? 0); };
   const handleDeleteColumnAction = () => { if (spreadsheet && activeCell) deleteColumn(activeCell.sheetId, activeCell.colIndex); };
   const handleAppendRowAction = () => { if (spreadsheet?.activeSheetId) appendRow(spreadsheet.activeSheetId); };
   const handleAppendColumnAction = () => { if (spreadsheet?.activeSheetId) appendColumn(spreadsheet.activeSheetId); };
+<<<<<<< HEAD
 
   const setTextAlign = (align: 'left' | 'center' | 'right') => { if (isSelectionActive) updateSelectedCellStyle({ textAlign: align }); };
   const handleNewSpreadsheet = () => router.push('/');
+=======
+  
+  const setTextAlign = (align: 'left' | 'center' | 'right') => { if (isSelectionActive) updateSelectedCellStyle({ textAlign: align }); };
+  const handleNewSpreadsheet = () => router.push('/'); 
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
   const handleEditSelectedCells = () => {
     if (!isSelectionActive) return;
     const newValue = window.prompt("Enter new value for all selected cells:", "");
@@ -230,7 +372,11 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
         entireCell: findEntireCell,
         searchFormulas: findInFormulas,
         sheetId: spreadsheet.activeSheetId,
+<<<<<<< HEAD
         from: activeCell // Use current active cell to find next
+=======
+        from: activeCell 
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
     });
     if (foundCell) {
         setActiveCellAndSelection(foundCell, false, false);
@@ -239,6 +385,7 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
     }
   };
 
+<<<<<<< HEAD
   const handleViewCellHistory = () => {
     if (activeCell && cellHistoryDialogApiRef.current) {
         cellHistoryDialogApiRef.current.openDialog(activeCell);
@@ -267,12 +414,24 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
       <input type="file" ref={xlsxInputRef} onChange={(e) => handleFileImport(e, 'xlsx')} accept=".xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style={{ display: 'none' }} />
       <input type="file" ref={csvInputRef} onChange={(e) => handleFileImport(e, 'csv')} accept=".csv, text/csv" style={{ display: 'none' }} />
 
+=======
+  const isSelectionActive = !!selectionRange; 
+
+  return (
+    <div className="p-2 border-b bg-card flex flex-col md:flex-row items-start md:items-center justify-between gap-2 shadow-sm flex-wrap print:hidden">
+      <input type="file" ref={fileInputRef} onChange={handleFileSelected} accept=".json,.offlinesheet.json" style={{ display: 'none' }} />
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
       <div className="flex items-center gap-2 w-full md:w-auto">
         <Link href="/" aria-label="Back to dashboard">
           <OfflineSheetLogo className="h-8 w-8"/>
         </Link>
+<<<<<<< HEAD
         <Input
           value={spreadsheetName}
+=======
+        <Input 
+          value={spreadsheetName} 
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
           onChange={handleNameChange}
           className="font-semibold text-lg w-auto min-w-[150px] max-w-[300px]"
           aria-label="Spreadsheet Name"
@@ -287,6 +446,7 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
             <MenubarContent>
               <MenubarItem onClick={handleNewSpreadsheet}><FilePlus className="mr-2 h-4 w-4" /> New</MenubarItem>
               <MenubarSeparator />
+<<<<<<< HEAD
               <MenubarItem onClick={contextSaveSpreadsheet} disabled={!spreadsheet}><Save className="mr-2 h-4 w-4" /> Save</MenubarItem>
               <MenubarSeparator />
               <MenubarSub>
@@ -312,6 +472,17 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
               <MenubarItem onClick={() => setIsManageSnapshotsDialogOpen(true)} disabled={!hasSnapshots}><Layers className="mr-2 h-4 w-4" /> Manage Snapshots...</MenubarItem> */}
               <MenubarSeparator />
               <MenubarItem onClick={handleShare}><Share2 className="mr-2 h-4 w-4" /> Share (Download JSON)</MenubarItem>
+=======
+              <MenubarItem onClick={saveSpreadsheet} disabled={!spreadsheet}><Save className="mr-2 h-4 w-4" /> Save</MenubarItem>
+              <MenubarItem onClick={handleLoadFromFileClick}><Upload className="mr-2 h-4 w-4" /> Load from File...</MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem onClick={() => handleExport('xlsx')}><Download className="mr-2 h-4 w-4" /> Export as .xlsx</MenubarItem>
+              <MenubarItem onClick={() => handleExport('csv')}><FileText className="mr-2 h-4 w-4" /> Export as .csv</MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem onClick={() => window.print()}><Printer className="mr-2 h-4 w-4" /> Print</MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem onClick={handleShare}><Share2 className="mr-2 h-4 w-4" /> Share (Download JSON)...</MenubarItem>
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
               <MenubarSeparator />
               <MenubarItem asChild><Link href="/"><Home className="mr-2 h-4 w-4" /> Dashboard</Link></MenubarItem>
             </MenubarContent>
@@ -331,6 +502,7 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
               </MenubarItem>
               <MenubarSeparator />
               <MenubarItem onClick={() => setIsFindDialogOpen(true)}><Search className="mr-2 h-4 w-4" /> Find...</MenubarItem>
+<<<<<<< HEAD
               <MenubarSeparator />
               <MenubarItem onClick={handleViewCellHistory} disabled={!activeCell || !activeCellHasHistory}>
                 <Clock className="mr-2 h-4 w-4" /> View Cell History...
@@ -339,6 +511,12 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
           </MenubarMenu>
 
            <MenubarMenu>
+=======
+            </MenubarContent>
+          </MenubarMenu>
+          
+          <MenubarMenu>
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
             <MenubarTrigger className="px-3 py-1.5">Insert</MenubarTrigger>
             <MenubarContent>
                 <MenubarItem onClick={handleInsertRowAction} disabled={!spreadsheet}><RowsIcon className="mr-2 h-4 w-4" /> Insert Row Above</MenubarItem>
@@ -376,9 +554,15 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
               <MenubarSeparator />
                 <MenubarSub>
                     <MenubarSubTrigger disabled={!isSelectionActive}><Palette className="mr-2 h-4 w-4" /> Font Family</MenubarSubTrigger>
+<<<<<<< HEAD
                     <MenubarSubContent className="max-h-72 overflow-y-auto">
                         {FONT_FAMILIES.map(family => (
                             <MenubarItem key={family} onClick={() => handleFontFamilyChange(family)} className={cn(selectedCellStyle?.fontFamily === family && "bg-accent", "text-xs")}>{family}</MenubarItem>
+=======
+                    <MenubarSubContent>
+                        {FONT_FAMILIES.map(family => (
+                            <MenubarItem key={family} onClick={() => handleFontFamilyChange(family)} className={cn(selectedCellStyle?.fontFamily === family && "bg-accent")}>{family}</MenubarItem>
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
                         ))}
                     </MenubarSubContent>
                 </MenubarSub>
@@ -386,7 +570,11 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
                     <MenubarSubTrigger disabled={!isSelectionActive}><Pilcrow className="mr-2 h-4 w-4" /> Font Size</MenubarSubTrigger>
                     <MenubarSubContent>
                         {FONT_SIZES.map(size => (
+<<<<<<< HEAD
                             <MenubarItem key={size} onClick={() => handleFontSizeChange(size)} className={cn(selectedCellStyle?.fontSize === size && "bg-accent", "text-xs")}>{size}</MenubarItem>
+=======
+                            <MenubarItem key={size} onClick={() => handleFontSizeChange(size)} className={cn(selectedCellStyle?.fontSize === size && "bg-accent")}>{size}</MenubarItem>
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
                         ))}
                     </MenubarSubContent>
                 </MenubarSub>
@@ -401,6 +589,7 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
                       <MenubarItem onClick={() => setTextAlign('right')} className={cn(selectedCellStyle?.textAlign === 'right' && "bg-accent")}><AlignRight className="mr-2 h-4 w-4" /> Right</MenubarItem>
                   </MenubarSubContent>
               </MenubarSub>
+<<<<<<< HEAD
                <MenubarSeparator />
                <MenubarSub>
                   <MenubarSubTrigger disabled={!isSelectionActive}><Hash className="mr-2 h-4 w-4" /> Number Format</MenubarSubTrigger>
@@ -422,6 +611,8 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
                   ))}
                 </MenubarSubContent>
               </MenubarSub>
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
               <MenubarSeparator />
               <MenubarItem onClick={mergeSelection} disabled={!isSelectionActive}><Merge className="mr-2 h-4 w-4" /> Merge & Center</MenubarItem>
               <MenubarItem onClick={unmergeSelection} disabled={!activeCell}><Split className="mr-2 h-4 w-4" /> Unmerge Cells</MenubarItem>
@@ -435,6 +626,7 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
       </div>
 
       <div className="flex items-center gap-1 flex-wrap mt-2 md:mt-0 border-t md:border-t-0 pt-2 md:pt-0 w-full md:w-auto">
+<<<<<<< HEAD
         <Button variant="ghost" size="icon" onClick={contextSaveSpreadsheet} aria-label="Save Spreadsheet" title="Save" disabled={!spreadsheet}><Save /></Button>
         <Button variant="ghost" size="icon" onClick={undo} aria-label="Undo" title="Undo" disabled={!canUndo}><Undo /></Button>
         <Button variant="ghost" size="icon" onClick={redo} aria-label="Redo" title="Redo" disabled={!canRedo}><Redo /></Button>
@@ -447,11 +639,29 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
 
         <Separator orientation="vertical" className="h-6 mx-1"/>
 
+=======
+        <Button variant="ghost" size="icon" onClick={saveSpreadsheet} aria-label="Save Spreadsheet" title="Save" disabled={!spreadsheet}><Save /></Button>
+        <Button variant="ghost" size="icon" onClick={undo} aria-label="Undo" title="Undo" disabled={!canUndo}><Undo /></Button>
+        <Button variant="ghost" size="icon" onClick={redo} aria-label="Redo" title="Redo" disabled={!canRedo}><Redo /></Button>
+        <Button variant="ghost" size="icon" onClick={() => window.print()} aria-label="Print Spreadsheet" title="Print"><Printer /></Button>
+        <Button variant="ghost" size="icon" onClick={handleShare} aria-label="Share Spreadsheet (Download JSON)" title="Share (Download JSON)"><Share2 /></Button>
+        
+        <Separator orientation="vertical" className="h-6 mx-1"/>
+        <Button variant="ghost" size="icon" onClick={copySelectionToClipboard} aria-label="Copy Selection" title="Copy Selection" disabled={!isSelectionActive}><ClipboardCopy /></Button>
+        <Button variant="ghost" size="icon" onClick={deleteSelectionContents} aria-label="Clear Contents of Selection" title="Clear Contents" disabled={!isSelectionActive}><Eraser /></Button>
+        
+        <Separator orientation="vertical" className="h-6 mx-1"/>
+        
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
         <Select value={selectedCellStyle?.fontFamily || FONT_FAMILIES[0]} onValueChange={handleFontFamilyChange} disabled={!isSelectionActive}>
           <SelectTrigger className="h-9 w-[120px] text-xs" title="Font Family">
             <SelectValue placeholder="Font" />
           </SelectTrigger>
+<<<<<<< HEAD
           <SelectContent className="max-h-60">
+=======
+          <SelectContent>
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
             {FONT_FAMILIES.map(family => <SelectItem key={family} value={family} className="text-xs">{family}</SelectItem>)}
           </SelectContent>
         </Select>
@@ -467,6 +677,7 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
 
         <Separator orientation="vertical" className="h-6 mx-1"/>
 
+<<<<<<< HEAD
         <Button
           variant={selectedCellStyle?.bold ? "secondary" : "ghost"}
           size="icon"
@@ -488,11 +699,35 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
           size="icon"
           onClick={handleToggleUnderline}
           aria-label="Underline"
+=======
+        <Button 
+          variant={selectedCellStyle?.bold ? "secondary" : "ghost"} 
+          size="icon" 
+          onClick={handleToggleBold} 
+          aria-label="Bold" 
+          title="Bold (Ctrl+B)"
+          disabled={!isSelectionActive}
+        ><Bold /></Button>
+        <Button 
+          variant={selectedCellStyle?.italic ? "secondary" : "ghost"} 
+          size="icon" 
+          onClick={handleToggleItalic} 
+          aria-label="Italic" 
+          title="Italic (Ctrl+I)"
+          disabled={!isSelectionActive}
+        ><Italic /></Button>
+        <Button 
+          variant={selectedCellStyle?.underline ? "secondary" : "ghost"} 
+          size="icon" 
+          onClick={handleToggleUnderline} 
+          aria-label="Underline" 
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
           title="Underline (Ctrl+U)"
           disabled={!isSelectionActive}
         ><Underline /></Button>
 
         <Separator orientation="vertical" className="h-6 mx-1"/>
+<<<<<<< HEAD
 
         <Button
           variant={selectedCellStyle?.textAlign === 'left' ? "secondary" : "ghost"}
@@ -515,6 +750,30 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
           size="icon"
           onClick={() => setTextAlign('right')}
           aria-label="Align Right"
+=======
+        
+        <Button 
+          variant={selectedCellStyle?.textAlign === 'left' ? "secondary" : "ghost"} 
+          size="icon" 
+          onClick={() => setTextAlign('left')} 
+          aria-label="Align Left" 
+          title="Align Left"
+          disabled={!isSelectionActive}
+        ><AlignLeft /></Button>
+        <Button 
+          variant={selectedCellStyle?.textAlign === 'center' ? "secondary" : "ghost"} 
+          size="icon" 
+          onClick={() => setTextAlign('center')} 
+          aria-label="Align Center"
+          title="Align Center" 
+          disabled={!isSelectionActive}
+        ><AlignCenter /></Button>
+        <Button 
+          variant={selectedCellStyle?.textAlign === 'right' ? "secondary" : "ghost"} 
+          size="icon" 
+          onClick={() => setTextAlign('right')} 
+          aria-label="Align Right" 
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
           title="Align Right"
           disabled={!isSelectionActive}
         ><AlignRight /></Button>
@@ -523,12 +782,18 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
          <Button variant="ghost" size="icon" onClick={unmergeSelection} disabled={!activeCell} title="Unmerge Cells"><Split /></Button>
       </div>
       <AvailableFunctionsDialog isOpen={isFunctionsDialogOpen} onOpenChange={setIsFunctionsDialogOpen} />
+<<<<<<< HEAD
       <ConditionalFormattingDialog
         isOpen={isConditionalFormattingDialogOpen}
+=======
+      <ConditionalFormattingDialog 
+        isOpen={isConditionalFormattingDialogOpen} 
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
         onOpenChange={setIsConditionalFormattingDialogOpen}
         activeSheetId={spreadsheet?.activeSheetId}
         selectionRange={selectionRange}
       />
+<<<<<<< HEAD
       <CellHistoryDialog 
         isOpen={isCellHistoryDialogOpen} 
         onOpenChange={setIsCellHistoryDialogOpen} 
@@ -536,6 +801,9 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
       />
 
 
+=======
+      
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
       <Dialog open={isFindDialogOpen} onOpenChange={setIsFindDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
@@ -568,7 +836,10 @@ export default function Toolbar({ spreadsheetName, theme, setTheme }: ToolbarPro
           </DialogFooter>
         </DialogContent>
       </Dialog>
+<<<<<<< HEAD
       {/* <ManageSnapshotsDialog isOpen={isManageSnapshotsDialogOpen} onOpenChange={setIsManageSnapshotsDialogOpen} /> */}
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
 
     </div>
   );

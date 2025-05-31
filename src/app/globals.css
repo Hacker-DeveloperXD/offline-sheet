@@ -60,11 +60,14 @@ body {
     --cf-dark-yellow-text: 50 60% 30%; /* hsl(50, 60%, 30%) */
     --cf-green-fill: 120 100% 95%; /* hsl(120, 100%, 95%) */
     --cf-dark-green-text: 120 60% 30%; /* hsl(120, 60%, 30%) */
+<<<<<<< HEAD
 
     /* Data Type Validation Error Style */
     --validation-error-background: 0 100% 95%; /* Light red fill */
     --validation-error-ring: 0 84.2% 60.2%; /* Destructive color for ring */
 
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
   }
 
   .dark {
@@ -118,10 +121,13 @@ body {
     --cf-dark-yellow-text: 50 100% 80%;
     --cf-green-fill: 120 40% 25%;
     --cf-dark-green-text: 120 100% 85%;
+<<<<<<< HEAD
 
     /* Data Type Validation Error Style - Dark */
     --validation-error-background: 0 40% 25%; 
     --validation-error-ring: 0 70% 50%;
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
   }
 }
 
@@ -213,6 +219,7 @@ body {
     table-layout: fixed !important; /* Helps with column widths in print */
   }
 }
+<<<<<<< HEAD
 
 /* Data type validation error styling */
 .cell-validation-error {
@@ -220,3 +227,5 @@ body {
   outline: 2px solid hsl(var(--validation-error-ring)) !important;
   outline-offset: -1px;
 }
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2

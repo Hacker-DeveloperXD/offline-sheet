@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
 {
   "name": "nextn",
   "version": "0.1.0",
@@ -42,7 +45,11 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "dotenv": "^16.5.0",
+<<<<<<< HEAD
     "firebase": "^10.12.2",
+=======
+    "firebase": "^11.8.1",
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
     "genkit": "^1.8.0",
     "lucide-react": "^0.475.0",
     "mathjs": "^13.0.3",

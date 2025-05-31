@@ -10,13 +10,17 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+<<<<<<< HEAD
 import { Check, XIcon } from "lucide-react"; // Import icons
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
 
 interface AvailableFunctionsDialogProps {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
 
+<<<<<<< HEAD
 // Keep this list updated with what's actually implemented in SpreadsheetContext.tsx
 const implementedFunctions = new Set([
   "SUM", "AVERAGE", "COUNT", "MAX", "MIN", "IF",
@@ -25,6 +29,8 @@ const implementedFunctions = new Set([
   // Add more as they are implemented
 ]);
 
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
 const functionsList = [
   // Math & Trig
   { name: "SUM", syntax: "SUM(number1, [number2], ...)", description: "Adds all the numbers in a range of cells." },
@@ -33,18 +39,29 @@ const functionsList = [
   { name: "MAX", syntax: "MAX(number1, [number2], ...)", description: "Returns the largest value in a set of values." },
   { name: "MIN", syntax: "MIN(number1, [number2], ...)", description: "Returns the smallest number in a set of values." },
   { name: "ROUND", syntax: "ROUND(number, num_digits)", description: "Rounds a number to a specified number of digits." },
+<<<<<<< HEAD
+=======
+  { name: "RAND", syntax: "RAND()", description: "Returns an evenly distributed random real number greater than or equal to 0 and less than 1." },
+  { name: "RANDBETWEEN", syntax: "RANDBETWEEN(bottom, top)", description: "Returns a random integer number between the numbers you specify." },
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
   { name: "ABS", syntax: "ABS(number)", description: "Returns the absolute value of a number." },
   { name: "INT", syntax: "INT(number)", description: "Rounds a number down to the nearest integer." },
   { name: "MOD", syntax: "MOD(number, divisor)", description: "Returns the remainder after a number is divided by a divisor." },
   { name: "POWER", syntax: "POWER(number, power)", description: "Returns the result of a number raised to a power." },
   { name: "PRODUCT", syntax: "PRODUCT(number1, [number2], ...)", description: "Multiplies all the numbers given as arguments." },
   { name: "SQRT", syntax: "SQRT(number)", description: "Returns a positive square root." },
+<<<<<<< HEAD
   { name: "RAND", syntax: "RAND()", description: "Returns an evenly distributed random real number greater than or equal to 0 and less than 1." },
   { name: "RANDBETWEEN", syntax: "RANDBETWEEN(bottom, top)", description: "Returns a random integer number between the numbers you specify." },
   { name: "SUBTOTAL", syntax: "SUBTOTAL(function_num, ref1, [ref2],...)", description: "Returns a subtotal in a list or database. It is versatile, allowing various functions like SUM, AVERAGE, COUNT, etc., while ignoring other subtotals and optionally hidden rows." },
   // Text
   { name: "CONCATENATE", syntax: "CONCATENATE(text1, [text2], ...)", description: "Joins several text strings into one text string. (Excel also supports CONCAT)." },
   { name: "CONCAT", syntax: "CONCAT(text1, [text2], ...)", description: "Joins several text strings into one text string. (Modern Excel version of CONCATENATE)." },
+=======
+  { name: "SUBTOTAL", syntax: "SUBTOTAL(function_num, ref1, [ref2],...)", description: "Returns a subtotal in a list or database. It is versatile, allowing various functions like SUM, AVERAGE, COUNT, etc., while ignoring other subtotals and optionally hidden rows." },
+  // Text
+  { name: "CONCATENATE", syntax: "CONCATENATE(text1, [text2], ...)", description: "Joins several text strings into one text string. (Excel also supports CONCAT)." },
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
   { name: "TEXT", syntax: "TEXT(value, format_text)", description: "Converts a value to text in a specific number format." },
   { name: "LEFT", syntax: "LEFT(text, [num_chars])", description: "Returns the specified number of characters from the start of a text string." },
   { name: "RIGHT", syntax: "RIGHT(text, [num_chars])", description: "Returns the specified number of characters from the end of a text string." },
@@ -54,10 +71,13 @@ const functionsList = [
   { name: "REPLACE", syntax: "REPLACE(old_text, start_num, num_chars, new_text)", description: "Replaces part of a text string with a different text string." },
   { name: "SUBSTITUTE", syntax: "SUBSTITUTE(text, old_text, new_text, [instance_num])", description: "Substitutes new_text for old_text in a text string." },
   { name: "TRIM", syntax: "TRIM(text)", description: "Removes leading and trailing spaces from text." },
+<<<<<<< HEAD
   { name: "LOWER", syntax: "LOWER(text)", description: "Converts all uppercase letters in a text string to lowercase." },
   { name: "UPPER", syntax: "UPPER(text)", description: "Converts text to uppercase." },
   { name: "PROPER", syntax: "PROPER(text)", description: "Capitalizes the first letter in each word of a text value." },
 
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
   // Logical
   { name: "IF", syntax: "IF(logical_test, value_if_true, [value_if_false])", description: "Checks whether a condition is met, and returns one value if TRUE, and another value if FALSE." },
   { name: "AND", syntax: "AND(logical1, [logical2], ...)", description: "Returns TRUE if all its arguments are TRUE; returns FALSE if one or more arguments are FALSE." },
@@ -115,18 +135,27 @@ export function AvailableFunctionsDialog({ isOpen, onOpenChange }: AvailableFunc
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-3xl max-h-[80vh]">
         <DialogHeader>
+<<<<<<< HEAD
           <DialogTitle>Available Functions Reference</DialogTitle>
           <DialogDescription>
             This is a list of commonly used spreadsheet functions. 
             <Check className="inline-block h-4 w-4 mx-1 text-green-600" /> indicates implemented. 
             <XIcon className="inline-block h-4 w-4 mx-1 text-red-600" /> indicates not yet implemented.
+=======
+          <DialogTitle>Available Functions (Reference)</DialogTitle>
+          <DialogDescription>
+            This is a list of commonly used spreadsheet functions. The application currently stores formulas as text and does not perform calculations.
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="h-[60vh] w-full rounded-md border p-4">
           <Table>
             <TableHeader>
               <TableRow>
+<<<<<<< HEAD
                 <TableHead className="w-[50px]">Status</TableHead>
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
                 <TableHead className="w-[150px]">Function</TableHead>
                 <TableHead className="w-[250px]">Syntax</TableHead>
                 <TableHead>Description</TableHead>
@@ -135,6 +164,7 @@ export function AvailableFunctionsDialog({ isOpen, onOpenChange }: AvailableFunc
             <TableBody>
               {functionsList.map((func) => (
                 <TableRow key={func.name}>
+<<<<<<< HEAD
                   <TableCell>
                     {implementedFunctions.has(func.name.toUpperCase()) ? (
                       <Check className="h-5 w-5 text-green-600" title="Implemented"/>
@@ -142,6 +172,8 @@ export function AvailableFunctionsDialog({ isOpen, onOpenChange }: AvailableFunc
                       <XIcon className="h-5 w-5 text-red-600" title="Not Implemented"/>
                     )}
                   </TableCell>
+=======
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
                   <TableCell className="font-medium">{func.name}</TableCell>
                   <TableCell className="font-mono text-xs">{func.syntax}</TableCell>
                   <TableCell>{func.description}</TableCell>
@@ -154,3 +186,7 @@ export function AvailableFunctionsDialog({ isOpen, onOpenChange }: AvailableFunc
     </Dialog>
   );
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3cd4ffaa439f3afbedf88f6042b7b8f5a2da87f2
